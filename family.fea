@@ -1,0 +1,575 @@
+#--------------------------------------
+@C_BARRED = [gjKSsa gjKSa gjKha gjGa gjGha gjCa gjJNya gjNya gjNna gjTa gjTTa gjTNa gjTRa gjTha gjDha gjNa gjNRa gjPa gjBa gjBha gjMa gjYa gjLa gjVa gjSha gjShRa gjSsa gjSa gjSMa];
+@C_BARRED_HALF = [gjKSs gjKS gjKh gjG gjGh gjC gjJNy gjNy gjNn gjT gjTT gjTN gjTR gjTh gjDh gjN gjNR gjP gjB gjBh gjM gjY gjL gjV gjSh gjShR gjSs gjS gjSM];
+@ABVM = [@MC_abvmBINDU @MC_abvmREPH @MC_abvmTOP];
+@VIRAMA = [gjVirama gjRakar gjRakarU gjRakarUu];
+@BLWM = [@MC_blwmBOTTOM @MC_blwmNUKTA @MC_blwmRUKAR];
+@BLWM_NO_NUKTA = [@MC_blwmBOTTOM @MC_blwmRUKAR];
+@C_HALF = [gjK gjKSs gjKS gjKh gjG gjGR gjGh gjGhR gjC gjCR gjJ gjJ.a gjJNy gjJR gjNy gjNn gjNnR gjT gjT.a gjTT gjTN gjTR gjTh gjThR gjDh gjN gjNR gjP gjP.a gjPR gjPh gjB gjBh gjM gjMR gjY gjL gjL.a gjLl gjV gjV.a gjSh gjShR gjSs gjSsR gjS gjS.a gjSK gjSM gjSR gjH];
+@IKARS = [gjIsign gjIsign.a gjIsign.b gjIsign.c gjIsign.d gjIsign.e gjIsign.f gjIsign.g gjIsign.h gjIsign.i gjIsign.j gjIsign.k gjIsign.l gjIsign.m gjIsign.n gjIsign.o gjIsign.p gjIsign.q gjIsign.r gjIsign.s gjIsign.t gjIsign.u gjIsign.v gjIsign.w gjIsign.x gjIsign.y gjIsign.z];
+
+@LETTERS_MAJUSCULE_LATIN = [A B C D E F G H I J K L M N O P Q R S T U V W X Y Z AE Lslash Oslash OE Eth Thorn];
+
+@FIGURES_LINING_TABULAR = [zero one two three four five six seven eight nine gjZero gjOne gjTwo gjThree gjFour gjFive gjSix gjSeven gjEight gjNine rupeeindian gjRupee.t gjSix.a];
+@FIGURES_LINING_PROPORTIONAL = [zero.pnum one.pnum two.pnum three.pnum four.pnum five.pnum six.pnum seven.pnum eight.pnum nine.pnum gjZero.pnum gjOne.pnum gjTwo.pnum gjThree.pnum gjFour.pnum gjFive.pnum gjSix.pnum gjSeven.pnum gjEight.pnum gjNine.pnum rupeeindian.pnum gjRupee gjSix.pa];
+
+@SORTS_DFLT = [exclam question quoteleft quoteright quotedblleft quotedblright asterisk];
+@SORTS_LATN = [exclam.latn question.latn quoteleft.latn quoteright.latn quotedblleft.latn quotedblright.latn asterisk.latn];
+
+@MARKS_CMB_LAT = [gravecmb acutecmb circumflexcmb tildecmb dieresiscmb macroncmb brevecmb ringcmb dotaccentcmb caroncmb candrabinducmb];
+@MARKS_CMB_LAT_CASE = [gravecmb.cap acutecmb.cap circumflexcmb.cap tildecmb.cap dieresiscmb.cap macroncmb.cap brevecmb.cap ringcmb.cap dotaccentcmb.cap caroncmb.cap candrabinducmb.cap];
+
+#--------------------------------------
+#languagesystem DFLT dflt;
+#languagesystem gjr2 dflt;
+#languagesystem gujr dflt;
+#languagesystem latn dflt;
+
+#--------------------------------------
+lookup DECOMPOSE_CANDRAS {
+	sub gjEcandra by gjA gjEcandrasign;
+	sub gjOcandra by gjAa gjEcandrasign;
+	sub gjOcandrasign by gjAasign gjEcandrasign;
+} DECOMPOSE_CANDRAS; 
+
+feature ccmp {
+
+lookup COMPOSE {
+	sub G macronbelowcmb H macronbelowcmb by GHmacronbelow;
+	sub G macrondoublebelowcmb H by GHmacronbelow;
+	sub G macronbelowcmb h macronbelowcmb by Ghmacronbelow;
+	sub G macronbelowcmb hlinebelow by Ghmacronbelow;
+	sub G macrondoublebelowcmb h by Ghmacronbelow;
+	sub g macronbelowcmb h macronbelowcmb by ghmacronbelow;
+	sub g macronbelowcmb hlinebelow by ghmacronbelow;
+	sub g macrondoublebelowcmb h by ghmacronbelow;
+	sub K macronbelowcmb H macronbelowcmb by KHmacronbelow;
+	sub Klinebelow H macronbelowcmb by KHmacronbelow;
+	sub K macrondoublebelowcmb H by KHmacronbelow;
+	sub K macronbelowcmb h macronbelowcmb by Khmacronbelow;
+	sub Klinebelow hlinebelow by Khmacronbelow;
+	sub K macrondoublebelowcmb h by Khmacronbelow;
+	sub k macronbelowcmb h macronbelowcmb by khmacronbelow;
+	sub klinebelow hlinebelow by khmacronbelow;
+	sub k macrondoublebelowcmb h by khmacronbelow;
+} COMPOSE; 
+
+lookup MAJUCSULE_ACCENTS_CMB_CONTEXT { # substitutes combining marks for miniscules with forms for majuscules
+	sub @LETTERS_MAJUSCULE_LATIN @MARKS_CMB_LAT' by @MARKS_CMB_LAT_CASE;
+} MAJUCSULE_ACCENTS_CMB_CONTEXT;
+
+lookup DECOMPOSE_CANDRAS_CXT {
+	sub [gjEcandra gjOcandra gjOcandrasign]' lookup DECOMPOSE_CANDRAS gjAnusvara;
+} DECOMPOSE_CANDRAS_CXT; 
+
+lookup COMPOSE_CANDRABINDU {
+	sub gjEcandrasign gjAnusvara by gjCandrabindu;
+} COMPOSE_CANDRABINDU; 
+
+} ccmp;
+
+#--------------------------------------
+feature locl { # Localized Forms
+
+script latn;
+	language dflt;
+		sub @SORTS_DFLT by @SORTS_LATN;
+} locl;
+
+
+#--------------------------------------
+#feature nukt { # Nukta Forms
+#} nukt;
+
+
+#--------------------------------------
+feature akhn { # Akhands
+
+lookup AKHANDS {
+	lookupflag MarkAttachmentType @VIRAMA;
+	sub gjKa gjVirama gjSsa by gjKSsa;
+	sub gjJa gjVirama gjNya by gjJNya;
+} AKHANDS;
+
+} akhn;
+
+
+#--------------------------------------
+feature rphf { # Reph
+lookupflag MarkAttachmentType @VIRAMA;
+
+	sub gjRa gjVirama by gjReph;
+
+} rphf;
+
+
+#--------------------------------------
+feature blwf { # Below-Base Forms
+
+script DFLT;
+	language dflt;
+		lookup blwf_gjr2 {
+			lookupflag MarkAttachmentType @VIRAMA;
+			sub gjVirama gjRa by gjRakar;
+		} blwf_gjr2;
+
+		lookup blwf_gujr {
+			sub gjRa gjVirama by gjRakar;
+		} blwf_gujr;
+
+script gjr2;
+	language dflt;
+		lookup blwf_gjr2;
+
+script gujr;
+	language dflt;
+		lookup blwf_gujr;
+
+} blwf;
+
+
+#--------------------------------------
+feature half { # Half Forms
+lookupflag MarkAttachmentType @VIRAMA;
+
+	sub gjKa gjVirama gjSa gjVirama by gjKS;
+	sub gjTa gjVirama gjTa gjVirama by gjTT;
+	sub gjTa gjVirama gjNa gjVirama by gjTN;
+	sub gjSa gjVirama gjMa gjVirama by gjSM;
+
+lookup KA_HALF {
+	@KA_NO_HALF = [gjNga gjJha gjTta gjTtha gjDda gjDdha @GUJ_PHA_RIGHT @GUJ_SHA_RIGHT ];
+	ignore sub gjSa' gjVirama' gjKa' gjVirama' @KA_NO_HALF;
+	ignore sub [gjKa gjPha]' gjVirama @KA_NO_HALF;
+	sub gjSa' gjVirama' gjKa' gjVirama' by gjSK;
+	sub gjKa' gjVirama' by gjK;
+	sub gjPha' gjVirama' by gjPh;
+} KA_HALF;
+
+lookup JA_HALF {
+	@JA_NO_HALF = [@GUJ_KA_RIGHT @GUJ_GA_RIGHT gjNga @GUJ_CA_RIGHT gjJha @GUJ_NYA_RIGHT gjTta gjTtha gjDda gjDdha @GUJ_TA_RIGHT @GUJ_THA_RIGHT @GUJ_NA_RIGHT @GUJ_PHA_RIGHT @GUJ_MA_RIGHT @GUJ_SA_RIGHT];
+	ignore sub gjJa' gjVirama' @JA_NO_HALF;
+	sub gjJa' gjVirama' by gjJ;
+} JA_HALF;
+
+	sub gjKha gjVirama by gjKh;
+	sub gjGa gjVirama by gjG;
+	sub gjGha gjVirama by gjGh;
+	sub gjCa gjVirama by gjC;
+	sub gjNya gjVirama by gjNy;
+	sub gjNna gjVirama by gjNn;
+	sub gjTa gjVirama by gjT;
+	sub gjTha gjVirama by gjTh;
+	sub gjDha gjVirama by gjDh;
+	sub gjNa gjVirama by gjN;
+	sub gjPa gjVirama by gjP;
+	sub gjBa gjVirama by gjB;
+	sub gjBha gjVirama by gjBh;
+	sub gjMa gjVirama by gjM;
+	sub gjYa gjVirama by gjY;
+	sub gjLa gjVirama by gjL;
+	sub gjLla gjVirama by gjLl;
+	sub gjVa gjVirama by gjV;
+	sub gjSha gjVirama by gjSh;
+	sub gjSsa gjVirama by gjSs;
+	sub gjSa gjVirama by gjS;
+	sub gjHa gjVirama by gjH;
+	sub gjKSsa gjVirama by gjKSs;
+	sub gjJNya gjVirama by gjJNy;
+	
+} half;
+
+
+#--------------------------------------
+#feature pstf { # Post-Base Forms #this feature disabled for Gujarati; file bug
+##
+#lookup pstf_gjr2 {
+#	script gjr2;
+#	language dflt;
+#	sub gjVirama gjYa by gjYa.a;
+#} pstf_gjr2;
+##
+#lookup pstf_gujr {
+#	script gujr;
+#	language dflt;
+#	sub gjYa gjVirama by gjYa.a;
+#} pstf_gujr;
+##
+#} pstf;
+
+#--------------------------------------
+feature cjct { # Conjuncts # this feature disabled for Gujarati, filed bug #3528337
+
+	lookup CONJUNCTS_NO_HALF {
+	lookupflag 0;
+		sub gjDa gjVirama gjRa gjVirama gjYa by gjDRYa;
+		sub gjKa gjVirama gjTta by gjKTta;
+		sub gjNga gjVirama gjKa by gjNgKa;
+		sub gjNga gjVirama gjMa by gjNgMa;
+		sub gjJha gjVirama gjYa by gjJhYa;
+		sub gjTta gjVirama gjTta by gjTtTta;
+		sub gjTta gjVirama gjVa by gjTtVa; 
+		sub gjTta gjVirama gjTtha by gjTtTtha;
+		sub gjTtha gjVirama gjTtha by gjTthTtha;
+		sub gjTtha gjVirama gjYa by gjTthYa; 
+		sub gjDda gjVirama gjDda by gjDdDda;
+		sub gjDda gjVirama gjNa by gjDdNa;
+		sub gjDda gjVirama gjVa by gjDdVa;
+		sub gjDdha gjVirama gjDdha by gjDdhDdha;
+		sub gjDdha gjVirama gjNa by gjDdhNa;
+		sub gjDa gjVirama gjGa by gjDGa;
+		sub gjDa gjVirama gjGha by gjDGha;
+		sub gjDa gjVirama gjDa by gjDDa;
+		sub gjDa gjVirama gjDha by gjDDha;
+		sub gjDa gjVirama gjNa by gjDNa;
+		sub gjDa gjVirama gjBha by gjDBha; 
+		sub gjDa gjVirama gjMa by gjDMa;
+		sub gjDa gjVirama gjYa by gjDYa;
+		sub gjDa gjVirama gjVa by gjDVa;
+		sub gjPha gjVirama gjTta by gjPhTta;
+		sub gjPha gjVirama gjPha by gjPhPha; 
+	} CONJUNCTS_NO_HALF;
+
+} cjct;
+
+#--------------------------------------
+feature pres { # Pre-base Substitutions
+# NOTE: This substitution must be written to match 
+# the glyph sequence after the reordering of the 
+# underlying characters has occurred.
+
+lookup CC {
+	lookupflag MarkAttachmentType @VIRAMA;
+	sub gjSK gjYa by gjSKYa; 
+	sub gjKS gjYa by gjKSYa; 
+
+	sub gjK gjKa by gjKKa;
+	sub gjK gjTa by gjKTa;
+	sub gjK gjMa by gjKMa; 
+	sub gjK gjYa by gjKYa;
+	sub gjKSs gjMa by gjKSsMa;
+	sub gjKSs gjYa by gjKSsYa;
+	sub gjK gjSsa by gjKSsa;
+	sub gjK gjSa by gjKSa;
+	sub gjG gjNa by gjGNa;
+	sub gjGh gjNa by gjGhNa;
+	sub gjC gjCha by gjCCha; 
+	sub gjC gjYa by gjCYa;
+	sub gjJ gjYa by gjJYa;
+	sub gjT gjTa by gjTTa;
+	sub gjTT gjYa by gjTTYa;
+	sub gjTh gjNa by gjThNa; 
+	sub gjT gjNa by gjTNa;
+	sub gjT gjMa by gjTMa;
+	sub gjT gjYa by gjTYa;
+	sub gjDh gjNa by gjDhNa;
+	sub gjN gjDda by gjNDda;
+	sub gjN gjNa by gjNNa;
+	sub gjP gjKa by gjPKa; 
+	sub gjP gjTta by gjPTta;
+	sub gjP gjTa by gjPTa;
+	sub gjP gjNa by gjPNa; 
+	sub gjP gjPha by gjPPha; 
+	sub gjPh gjYa by gjPhYa;
+	sub gjB gjKa by gjBKa; 
+	sub gjB gjDda by gjBDda; 
+	sub gjB gjNa by gjBNa;
+	sub gjB gjSa by gjBSa;
+	sub gjM gjNa by gjMNa; 
+	sub gjL gjTta by gjLTta; 
+	sub gjL gjDda by gjLDda; 
+	sub gjL gjYa by gjLYa;
+	sub gjLl gjYa by gjLlYa;
+	sub gjV gjYa by gjVYa;
+	sub gjSh gjCa by gjShCa;
+	sub gjSh gjNa by gjShNa;
+	sub gjSh gjLa by gjShLa;
+	sub gjSh gjVa by gjShVa;
+	sub gjSs gjTta by gjSsTta;
+	sub gjSs gjTtha by gjSsTtha;
+	sub gjSs gjNa by gjSsNa; 
+	sub gjS gjKa by gjSKa; 
+	sub gjS gjTha by gjSTha;
+	sub gjS gjNa by gjSNa; 
+	sub gjS gjPha by gjSPha; 
+	sub gjS gjMa by gjSMa; 
+	sub gjS gjYa by gjSYa; 
+	sub gjH gjNna by gjHNna;
+	sub gjH gjNa by gjHNa;
+	sub gjH gjMa by gjHMa;
+	sub gjH gjYa by gjHYa;
+	sub gjH gjLa by gjHLa;
+	sub gjH gjVa by gjHVa;
+} CC;
+
+lookup CC_CXT {
+	ignore sub gjSs' gjKa' gjRakar; 
+	sub gjSs' gjKa' by gjSsKa; 
+} CC_CXT;
+
+lookup HALF_ALTS {
+	sub gjJ' @GUJ_JA_RIGHT by gjJ.a;
+	sub gjT' [@GUJ_CA_RIGHT @GUJ_PA_RIGHT @GUJ_SSTTA_RIGHT @GUJ_KHA_RIGHT @GUJ_GA_RIGHT @GUJ_PA_CJCT_RIGHT @GUJ_NYA_RIGHT @GUJ_YA_RIGHT @GUJ_TTHA_RIGHT @GUJ_TTA_RIGHT @GUJ_THA_RIGHT@GUJ_SHA_RIGHT @GUJ_SA_RIGHT @GUJ_DA_CJCT_RIGHT] by gjT.a;
+	sub gjS' [@GUJ_PA_CJCT_RIGHT @GUJ_JHA_RIGHT @GUJ_SHA_RIGHT @GUJ_TTHA_RIGHT @GUJ_GA_RIGHT @GUJ_CA_RIGHT @GUJ_SA_RIGHT @GUJ_KSSA_RIGHT @GUJ_GHA_RIGHT @GUJ_DHA_RIGHT @GUJ_TTA_RIGHT] by gjS.a;
+	sub gjP' [@GUJ_DHA_RIGHT @GUJ_TTA_RIGHT @GUJ_DDA_RIGHT gjCha @GUJ_SA_RIGHT @GUJ_KSSA_RIGHT @GUJ_SSTTA_RIGHT @GUJ_YA_RIGHT @GUJ_MA_RIGHT @GUJ_TTHA_RIGHT @GUJ_DA_RIGHT @GUJ_THA_RIGHT @GUJ_SHA_RIGHT @GUJ_JHA_RIGHT @GUJ_LA_RIGHT gjDdha] by gjP.a;
+	sub gjV' [@GUJ_DDA_RIGHT @GUJ_GHA_RIGHT @GUJ_TTHA_RIGHT @GUJ_TTA_RIGHT @GUJ_DHA_RIGHT @GUJ_SHA_RIGHT @GUJ_DA_RIGHT @GUJ_THA_RIGHT @GUJ_KHA_RIGHT @GUJ_KSSA_RIGHT @GUJ_MA_RIGHT gjDdha @GUJ_SA_RIGHT gjCha @GUJ_HA_CJCT_RIGHT] by gjV.a;
+	sub gjL' [@GUJ_HA_CJCT_RIGHT @GUJ_TTHA_RIGHT @GUJ_MA_RIGHT @GUJ_CA_RIGHT @GUJ_PA_RIGHT @GUJ_KSSA_RIGHT @GUJ_SA_RIGHT @GUJ_KHA_RIGHT @GUJ_DA_CJCT_RIGHT @GUJ_THA_RIGHT @GUJ_SHA_RIGHT @GUJ_TA_RIGHT @GUJ_NA_RIGHT @GUJ_JHA_RIGHT @GUJ_GA_RIGHT @GUJ_NYA_RIGHT] by gjL.a;
+} HALF_ALTS;
+
+} pres;
+
+#--------------------------------------
+lookup DECOMPOSE_JO { # for context RJO
+	sub gjOsign by gjAasign gjEsign;
+	sub gjOcandrasign by gjAasign gjEcandrasign;
+	sub gjAusign by gjAasign gjAisign;
+} DECOMPOSE_JO;
+
+feature abvs { # Above-Base Substitutions
+
+lookup DECOMPOSE_JO_CXT { # for context RJO and Reph + Ocandrasign
+lookupflag MarkAttachmentType @ABVM;
+	sub gjJa [gjOsign gjOcandrasign gjAusign]' lookup DECOMPOSE_JO gjReph;
+	sub gjOcandrasign' lookup DECOMPOSE_JO gjReph;
+} DECOMPOSE_JO_CXT;
+
+lookup CV_LIGS_NO_MARK {
+lookupflag IgnoreMarks;
+	sub gjJa gjAasign by gjJAa;
+	sub gjJa gjIisign by gjJIi;
+} CV_LIGS_NO_MARK;
+
+lookup CV_J_FORMS {
+lookupflag IgnoreMarks;
+	sub gjJa' [gjOcandrasign gjOsign gjAusign] by gjJAa;
+	sub gjJAa gjOcandrasign' by gjEcandrasign;
+	sub gjJAa gjOsign' by gjEsign;
+	sub gjJAa gjAusign' by gjAisign;
+} CV_J_FORMS;
+
+lookup REPH_LIGS {
+lookupflag MarkAttachmentType @ABVM;
+	sub gjReph gjAnusvara by gjRephAnusvara;
+
+	sub gjIisign gjReph gjAnusvara by gjIisignRephAnusvara;
+	sub gjEcandrasign gjReph gjAnusvara by gjEcandrasignRephAnusvara;
+	sub gjEsign gjReph gjAnusvara by gjEsignRephAnusvara;
+	sub gjAisign gjReph gjAnusvara by gjAisignRephAnusvara;
+	sub gjOcandrasign gjReph gjAnusvara by gjOcandrasignRephAnusvara;
+	sub gjOsign gjReph gjAnusvara by gjOsignRephAnusvara;
+	sub gjAusign gjReph gjAnusvara by gjAusignRephAnusvara;
+
+	sub gjIisign gjReph by gjIisignReph;
+#	sub gjEcandrasign gjReph by gjEcandrasignReph;
+	sub gjEsign gjReph by gjEsignReph;
+	sub gjAisign gjReph by gjAisignReph;
+#	sub gjOcandrasign gjReph by gjOcandrasignReph;
+	sub gjOsign gjReph by gjOsignReph;
+	sub gjAusign gjReph by gjAusignReph;
+} REPH_LIGS;
+
+lookup DECOMPOSE_REPH_LIGS {
+	sub gjEcandrasignRephAnusvara by gjCandrabindu gjReph;
+	sub gjOcandrasignRephAnusvara by gjAasign gjCandrabindu gjReph;
+} DECOMPOSE_REPH_LIGS;
+
+} abvs;
+
+
+#--------------------------------------
+lookup RVOCALSIGN_ALTS { # this lookup is a workaround for a bug in makeotf that assigns the wrong lookupflag assignment to contextual lookups built on-the-fly
+	sub [@C_BARRED gjRvocalsign gjRrvocalsign] by [@C_BARRED_HALF gjRvocalsign.a gjRrvocalsign.a]; 
+} RVOCALSIGN_ALTS;
+
+feature blws { # Below-Base Substitutions
+
+lookup RAKAR_FORMS {
+lookupflag MarkAttachmentType @VIRAMA;
+	sub gjT gjKa gjRakar by gjTKRa; 
+	sub gjKTa gjRakar by gjKTRa;
+	
+#	sub gjT gjRakar gjYa by gjTRYa;
+	sub gjDa gjVirama gjRakar gjYa by gjDRYa; # not working
+	sub gjS gjTa gjRakar by gjSTRa;
+	sub gjKa gjRakar by gjKRa;
+	sub gjKha gjRakar by gjKhRa;
+	sub gjGa gjRakar by gjGRa;
+	sub gjGha gjRakar by gjGhRa;
+	sub gjCa gjRakar by gjCRa;
+	sub gjJa gjRakar by gjJRa;
+	sub gjNna gjRakar by gjNnRa;
+	sub gjTa gjRakar by gjTRa;
+	sub gjTha gjRakar by gjThRa;
+	sub gjDa gjRakar by gjDRa;
+	sub gjDha gjRakar by gjDhRa;
+	sub gjNa gjRakar by gjNRa;
+	sub gjPa gjRakar by gjPRa;
+	sub gjPha gjRakar by gjPhRa;
+	sub gjBa gjRakar by gjBRa;
+	sub gjBha gjRakar by gjBhRa;
+	sub gjMa gjRakar by gjMRa;
+	sub gjVa gjRakar by gjVRa;
+	sub gjSha gjRakar by gjShRa;
+	sub gjSsa gjRakar by gjSsRa;
+	sub gjSa gjRakar by gjSRa;
+	
+	sub gjTTa gjRakar by gjTTRa; 
+	sub gjSKa gjRakar by gjSKRa;
+	
+	sub gjT gjRakar by gjTR;
+	sub gjSh gjRakar by gjShR;
+	sub gjG gjRakar by gjGR;
+	sub gjGh gjRakar by gjGhR;
+	sub gjC gjRakar by gjCR;
+	sub gjJ gjRakar by gjJR;
+	sub gjNn gjRakar by gjNnR;
+	sub gjTh gjRakar by gjThR;
+	sub gjN gjRakar by gjNR;
+	sub gjP gjRakar by gjPR;
+	sub gjM gjRakar by gjMR;
+	sub gjSs gjRakar by gjSsR;
+	sub gjS gjRakar by gjSR;
+	
+	sub gjJAa gjRakar by gjJRAa;
+	sub gjJIi gjRakar by gjJRIi;
+
+} RAKAR_FORMS;
+
+lookup CV_LIGS {
+lookupflag 0;
+	sub gjKSsa gjRvocalsign by gjKSsRvocal;
+	sub gjKSsa gjRrvocalsign by gjKSsRrvocal;
+	sub gjDDha gjRvocalsign by gjDDhRvocal;
+	sub gjNna gjUsign by gjNnU;
+	sub gjDa gjRvocalsign by gjDRvocal;
+	sub gjRa gjUsign by gjRU;
+	sub gjRa gjUusign by gjRUu;
+	sub gjLla gjRvocalsign by gjLlRvocal;
+	sub gjLla gjRrvocalsign by gjLlRrvocal;
+	sub gjSha gjRvocalsign by gjShRvocal;
+	sub gjSha gjRrvocalsign by gjShRrvocal;
+	sub gjHa gjRvocalsign by gjHRvocal;
+	sub gjRakar gjUsign by gjRakarU;
+	sub gjRakar gjUusign by gjRakarUu;
+} CV_LIGS;
+
+lookup RVOCALSIGN_ALTS_CXT {
+lookupflag 0;
+#	sub @C_BARRED' [gjRvocalsign gjRrvocalsign] by @C_BARRED_HALF; #these lines are optimized code and should work if not affected by a bug in makeotf
+#	sub @C_BARRED_HALF [gjRvocalsign gjRrvocalsign]' by [gjRvocalsign.a gjRrvocalsign.a];
+	sub @C_BARRED' lookup RVOCALSIGN_ALTS [gjRvocalsign gjRrvocalsign];
+	sub @C_BARRED_HALF [gjRvocalsign gjRrvocalsign]' lookup RVOCALSIGN_ALTS;
+} RVOCALSIGN_ALTS_CXT;
+
+} blws;
+
+
+#--------------------------------------
+feature psts { # Post-base Substitutions
+lookupflag MarkAttachmentType @VIRAMA;
+
+	sub [gjCha gjTta gjDdha] gjVirama' gjYa' by gjYa.a;
+
+lookup IKARS {
+	include (ikars.fea)
+} IKARS;
+
+lookup IIKARS {
+	sub [@GUJ_CHA_LEFT gjJha gjJRa @GUJ_TTA_LEFT gjTtVa gjTtTtha gjTtTta gjPTta gjSsTta gjSsTtha] [gjIisign gjIisignReph gjIisignRephAnusvara]' by [gjIisign.a gjIisignReph.a gjIisignRephAnusvara.a];
+	sub [gjRa gjLla @GUJ_KA_LEFT @GUJ_DDA_LEFT gjDdDda gjDdNa gjDdVa gjBDda gjTtha gjTthTtha @GUJ_DA_CJCT_LEFT gjDRvocal gjDa gjDDa gjHa] [gjIisign gjIisignReph gjIisignRephAnusvara]' by [gjIisign.b gjIisignReph.b gjIisignRephAnusvara.b];
+	sub [gjDdha gjDdhNa gjDdhDdha @GUJ_HA_CJCT_LEFT] [gjIisign gjIisignReph gjIisignRephAnusvara]' by [gjIisign.c gjIisignReph.c gjIisignRephAnusvara.c];
+	sub [gjNga gjNgKa] [gjIisign gjIisignReph gjIisignRephAnusvara]' by [gjIisign.d gjIisignReph.d gjIisignRephAnusvara.d];
+} IIKARS;
+	
+} psts;
+
+
+#--------------------------------------
+#feature calt {
+#} calt;
+
+#--------------------------------------
+feature pnum { # Proportional Figures
+	sub @FIGURES_LINING_TABULAR by @FIGURES_LINING_PROPORTIONAL;
+} pnum;
+
+#--------------------------------------
+feature tnum { # Tabular Figures
+	sub @FIGURES_LINING_PROPORTIONAL by @FIGURES_LINING_TABULAR;
+} tnum;
+
+#--------------------------------------
+feature liga {
+
+script latn;
+	language dflt;
+		sub f f b by f_f_b;
+		sub f f h by f_f_h;
+		sub f f i by f_f_i;
+		sub f f j by f_f_j;
+		sub f f k by f_f_k;
+		sub f f l by f_f_l;
+		sub f f t by f_f_t;
+		sub T h by T_h;
+		sub f b by f_b;
+		sub f f by f_f;
+		sub f h by f_h;
+		sub f i by f_i;
+		sub f j by f_j;
+		sub f k by f_k;
+		sub f l by f_l;
+		sub f t by f_t;
+} liga;
+
+#--------------------------------------
+feature ss01 {
+	sub [gjSix gjSix.pnum] by [gjSix.a gjSix.pa];
+} ss01;
+
+#--------------------------------------
+feature ss02 {
+lookup STRA_ALT {
+	sub gjSTRa by gjSTRa.a;
+} STRA_ALT; 
+lookup H_ALT_CONJUNCTS {
+	sub gjHMa by gjHMa.a;
+	sub gjHYa by gjHYa.a;
+} H_ALT_CONJUNCTS; 
+} ss02;
+
+#--------------------------------------
+feature ss03 {
+	lookup STRA_ALT;
+} ss03;
+
+#--------------------------------------
+feature ss04 {
+	lookup H_ALT_CONJUNCTS;
+} ss04;
+
+#--------------------------------------
+feature ss05 {
+
+lookup DECOMPOSE_CANDRAS_ALT {
+	sub gjCandrabindu by gjEcandrasign.a gjAnusvara;
+	sub gjEcandra by gjA gjEcandrasign.a;
+	sub gjOcandra by gjAa gjEcandrasign.a;
+	sub gjOcandrasign by gjAasign gjEcandrasign.a;
+} DECOMPOSE_CANDRAS_ALT; 
+
+	sub [gjEcandrasign gjOcandrasign] by [gjEcandrasign.a gjOcandrasign.a];
+
+lookup COMPOSE_CANDRA_LIGS {
+	sub gjEcandrasign.a gjAnusvara gjReph by gjEcandrasignRephAnusvara;
+	sub gjOcandrasign.a gjAnusvara gjReph by gjOcandrasignRephAnusvara;
+	sub gjEcandrasign.a gjReph by gjEcandrasignReph;
+	sub gjOcandrasign.a gjReph by gjOcandrasignReph;
+} COMPOSE_CANDRA_LIGS; 
+
+} ss05;
+
+#--------------------------------------
+feature size {
+	parameters 11.0 0; # design size, subfamily
+} size;
+
